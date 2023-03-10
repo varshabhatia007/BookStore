@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.varsha.bookstore.component.bookdetail.BookDetailScreen
 import com.varsha.bookstore.component.booklist.HomeScreen
 import com.varsha.bookstore.ui.navigation.Screen
 import com.varsha.bookstore.ui.theme.BookStoreTheme
@@ -59,9 +60,16 @@ fun NavigationComponent(
             )
         }
 
-        // Book Detail Information - Home Screen
-        composable(Screen.Detail.route) {
-
+        // Book Detail Information - Detail Screen
+        composable(Screen.Detail.route) { navBackStackEntry ->
+            val bookId = navBackStackEntry.arguments?.getString("bookId")
+            bookId?.let {
+                BookDetailScreen(
+                    navigateUp = { navController.popBackStack() },
+                    bookId = it.toInt(),
+                    viewModel = viewModel
+                )
+            }
         }
     }
 }
