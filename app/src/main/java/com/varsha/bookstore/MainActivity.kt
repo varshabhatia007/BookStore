@@ -3,7 +3,15 @@ package com.varsha.bookstore
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.varsha.bookstore.ui.navigation.Screen
 import com.varsha.bookstore.ui.theme.BookStoreTheme
+import com.varsha.bookstore.viewmodel.BookStoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -12,7 +20,35 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BookStoreTheme {
+                val navController = rememberNavController()
+                val viewModel: BookStoreViewModel = hiltViewModel()
+
+                // Navigation component for handling the screens navigation
+                NavigationComponent(
+                    navController = navController,
+                    viewModel = viewModel
+                )
             }
+        }
+    }
+}
+
+@Composable
+fun NavigationComponent(
+    navController: NavHostController,
+    viewModel: BookStoreViewModel
+) {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Home.route
+    ) {
+        // Book Information - Home Screen
+        composable(Screen.Home.route) {
+
+        }
+        // Book Detail Information - Home Screen
+        composable(Screen.Detail.route) {
+
         }
     }
 }
