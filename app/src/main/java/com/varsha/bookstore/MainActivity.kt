@@ -4,15 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.varsha.bookstore.component.booklist.HomeScreen
 import com.varsha.bookstore.ui.navigation.Screen
 import com.varsha.bookstore.ui.theme.BookStoreTheme
 import com.varsha.bookstore.viewmodel.BookStoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -44,8 +47,18 @@ fun NavigationComponent(
     ) {
         // Book Information - Home Screen
         composable(Screen.Home.route) {
-
+            val scope = rememberCoroutineScope()
+            scope.launch {
+                viewModel.getBooksData()
+            }
+            HomeScreen(
+                viewModel = viewModel,
+                showDetailScreen = {
+                    navController.navigate(Screen.Detail.createRoute(it))
+                }
+            )
         }
+
         // Book Detail Information - Home Screen
         composable(Screen.Detail.route) {
 
