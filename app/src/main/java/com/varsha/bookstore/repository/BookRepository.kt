@@ -11,7 +11,11 @@ import javax.inject.Inject
 class BookRepository @Inject constructor(
     private val bookStoreApi: BookStoreApi
 ) {
-    suspend fun getBookDataResponse(): Resource<List<BookResponse>> {
+    /*
+     * This is api call is used to get the data from the network
+     * with the list of books and managed into resources
+     */
+    suspend fun getBookData(): Resource<List<BookResponse>> {
         val response = try {
             bookStoreApi.getBooksData()
         } catch (e: Exception) {
@@ -20,6 +24,10 @@ class BookRepository @Inject constructor(
         return Resource.Success(response)
     }
 
+    /*
+    * This is api call is used to get the data from the network
+    * with the single books based on bookid
+    */
     suspend fun getBookFromBookId(bookId: Int): Resource<BookDetailResponse> {
         val response = try {
             bookStoreApi.getBookFromBookId(bookId)
