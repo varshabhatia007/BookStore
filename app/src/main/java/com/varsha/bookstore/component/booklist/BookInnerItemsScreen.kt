@@ -19,11 +19,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.varsha.bookstore.model.BookResponse
+import java.text.NumberFormat
 import java.util.*
 
 @Composable
 fun BookInnerItemsScreen(bookResponse: BookResponse, itemOnClick: (Int) -> Unit = {}) {
-    val currencySymbol = Currency.getInstance(bookResponse.currencyCode).getSymbol(Locale.getDefault())
+    val currencyAmount =
+        NumberFormat.getNumberInstance(Locale.getDefault()).format(bookResponse.price)
+    val currencySymbol =
+        Currency.getInstance(bookResponse.currencyCode).getSymbol(Locale.getDefault())
 
     Card(
         backgroundColor = MaterialTheme.colors.onPrimary,
@@ -64,7 +68,7 @@ fun BookInnerItemsScreen(bookResponse: BookResponse, itemOnClick: (Int) -> Unit 
 
             // Book price with currency symbol
             Text(
-                text = "Price: ${bookResponse.price} $currencySymbol",
+                text = "Price: $currencyAmount $currencySymbol",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,

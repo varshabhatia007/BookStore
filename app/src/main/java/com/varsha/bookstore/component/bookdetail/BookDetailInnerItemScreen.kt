@@ -21,10 +21,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.varsha.bookstore.model.BookDetailResponse
+import java.text.NumberFormat
 import java.util.*
 
 @Composable
 fun BookDetailInnerItemScreen(bookDetailResponse: BookDetailResponse) {
+    val currencyAmount =
+        NumberFormat.getNumberInstance(Locale.getDefault()).format(bookDetailResponse.price)
     val currencySymbol =
         Currency.getInstance(bookDetailResponse.currencyCode).getSymbol(Locale.getDefault())
     Surface(
@@ -105,7 +108,7 @@ fun BookDetailInnerItemScreen(bookDetailResponse: BookDetailResponse) {
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Book Price: ${bookDetailResponse.price}$currencySymbol",
+                    text = "Book Price: $currencyAmount$currencySymbol",
                     fontSize = 15.sp
                 )
             }
