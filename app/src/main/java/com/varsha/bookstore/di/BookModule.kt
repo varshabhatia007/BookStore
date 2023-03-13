@@ -2,6 +2,7 @@ package com.varsha.bookstore.di
 
 import com.varsha.bookstore.network.BookStoreApi
 import com.varsha.bookstore.repository.BookRepository
+import com.varsha.bookstore.utility.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +32,7 @@ class BookModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://tpbookserver.herokuapp.com/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
