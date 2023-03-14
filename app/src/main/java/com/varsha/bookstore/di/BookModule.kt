@@ -1,5 +1,7 @@
 package com.varsha.bookstore.di
 
+import com.varsha.bookstore.mapper.BookInfoDetailMapper
+import com.varsha.bookstore.mapper.BookInfoMapper
 import com.varsha.bookstore.network.BookStoreApi
 import com.varsha.bookstore.repository.BookRepository
 import com.varsha.bookstore.utility.BASE_URL
@@ -42,7 +44,9 @@ class BookModule {
     @Singleton
     @Provides
     fun provideBookRepository(
-        bookStoreApi: BookStoreApi
-    ) = BookRepository(bookStoreApi)
+        bookStoreApi: BookStoreApi,
+        bookInfoMapper: BookInfoMapper,
+        bookInfoDetailMapper: BookInfoDetailMapper
+    ) = BookRepository(bookStoreApi, bookInfoMapper, bookInfoDetailMapper)
 
 }

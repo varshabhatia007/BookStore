@@ -19,7 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.varsha.bookstore.R
 import com.varsha.bookstore.component.common.CircularProgressComponent
 import com.varsha.bookstore.component.common.ErrorComponent
-import com.varsha.bookstore.model.BookResponse
+import com.varsha.bookstore.data.BookResponseModel
 import com.varsha.bookstore.utility.Resource
 import com.varsha.bookstore.viewmodel.BookStoreViewModel
 
@@ -29,7 +29,7 @@ fun HomeScreen(
     viewModel: BookStoreViewModel = hiltViewModel()
 ) {
     val bookInfo =
-        produceState<Resource<List<BookResponse>>>(initialValue = Resource.Loading())
+        produceState<Resource<List<BookResponseModel>>>(initialValue = Resource.Loading())
         {
             value = viewModel.getBooksData()
         }.value

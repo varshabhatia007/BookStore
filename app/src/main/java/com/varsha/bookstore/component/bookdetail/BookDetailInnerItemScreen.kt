@@ -20,16 +20,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.varsha.bookstore.model.BookDetailResponse
+import com.varsha.bookstore.data.BookDetailResponseModel
 import java.text.NumberFormat
 import java.util.*
 
 @Composable
-fun BookDetailInnerItemScreen(bookDetailResponse: BookDetailResponse) {
+fun BookDetailInnerItemScreen(bookDetailResponseModel: BookDetailResponseModel) {
     val currencyAmount =
-        NumberFormat.getNumberInstance(Locale.getDefault()).format(bookDetailResponse.price)
+        NumberFormat.getNumberInstance(Locale.getDefault()).format(bookDetailResponseModel.price)
     val currencySymbol =
-        Currency.getInstance(bookDetailResponse.currencyCode).getSymbol(Locale.getDefault())
+        Currency.getInstance(bookDetailResponseModel.currencyCode).getSymbol(Locale.getDefault())
     Surface(
         color = MaterialTheme.colors.surface,
         modifier = Modifier
@@ -43,7 +43,7 @@ fun BookDetailInnerItemScreen(bookDetailResponse: BookDetailResponse) {
 
             // Title
             Text(
-                text = bookDetailResponse.title,
+                text = bookDetailResponseModel.title,
                 modifier = Modifier
                     .padding(4.dp)
                     .fillMaxWidth(),
@@ -57,7 +57,7 @@ fun BookDetailInnerItemScreen(bookDetailResponse: BookDetailResponse) {
 
             // Author
             Text(
-                text = bookDetailResponse.author,
+                text = bookDetailResponseModel.author,
                 modifier = Modifier
                     .padding(4.dp)
                     .fillMaxWidth(),
@@ -74,7 +74,7 @@ fun BookDetailInnerItemScreen(bookDetailResponse: BookDetailResponse) {
                 modifier = Modifier
                     .padding(4.dp)
                     .fillMaxWidth(),
-                text = "ISBN - ${bookDetailResponse.isbn}",
+                text = "ISBN - ${bookDetailResponseModel.isbn}",
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
                 fontFamily = FontFamily.SansSerif,
@@ -85,7 +85,7 @@ fun BookDetailInnerItemScreen(bookDetailResponse: BookDetailResponse) {
 
             // Description
             Text(
-                text = bookDetailResponse.description,
+                text = bookDetailResponseModel.description,
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
                     .padding(4.dp)
@@ -102,7 +102,7 @@ fun BookDetailInnerItemScreen(bookDetailResponse: BookDetailResponse) {
             // Add to cart Button
             Button(
                 shape = RoundedCornerShape(20.dp),
-                onClick = { print(bookDetailResponse.title + "Book Clicked") },
+                onClick = { print(bookDetailResponseModel.title + "Book Clicked") },
                 modifier = Modifier
                     .padding(4.dp)
                     .fillMaxWidth()

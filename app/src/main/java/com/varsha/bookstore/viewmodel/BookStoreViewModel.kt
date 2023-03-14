@@ -1,8 +1,8 @@
 package com.varsha.bookstore.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.varsha.bookstore.model.BookDetailResponse
-import com.varsha.bookstore.model.BookResponse
+import com.varsha.bookstore.data.BookDetailResponseModel
+import com.varsha.bookstore.data.BookResponseModel
 import com.varsha.bookstore.repository.BookRepository
 import com.varsha.bookstore.utility.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,11 +13,11 @@ class BookStoreViewModel @Inject constructor(
     private val bookRepository: BookRepository
 ) : ViewModel() {
 
-    suspend fun getBooksData(): Resource<List<BookResponse>> {
+    suspend fun getBooksData(): Resource<List<BookResponseModel>> {
         return bookRepository.getBookData()
     }
 
-    suspend fun getBookDataFromId(bookId: Int): Resource<BookDetailResponse> {
+    suspend fun getBookDataFromId(bookId: Int): Resource<BookDetailResponseModel> {
         return bookRepository.getBookFromBookId(bookId)
     }
 }

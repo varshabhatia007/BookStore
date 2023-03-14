@@ -18,21 +18,21 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.varsha.bookstore.model.BookResponse
+import com.varsha.bookstore.data.BookResponseModel
 import java.text.NumberFormat
 import java.util.*
 
 @Composable
-fun BookInnerItemsScreen(bookResponse: BookResponse, itemOnClick: (Int) -> Unit = {}) {
+fun BookInnerItemsScreen(bookResponseModel: BookResponseModel, itemOnClick: (Int) -> Unit = {}) {
     val currencyAmount =
-        NumberFormat.getNumberInstance(Locale.getDefault()).format(bookResponse.price)
+        NumberFormat.getNumberInstance(Locale.getDefault()).format(bookResponseModel.price)
     val currencySymbol =
-        Currency.getInstance(bookResponse.currencyCode).getSymbol(Locale.getDefault())
+        Currency.getInstance(bookResponseModel.currencyCode).getSymbol(Locale.getDefault())
 
     Card(
         backgroundColor = MaterialTheme.colors.onPrimary,
         modifier = Modifier
-            .clickable { itemOnClick(bookResponse.id) }
+            .clickable { itemOnClick(bookResponseModel.id) }
             .fillMaxWidth()
             .padding(5.dp)
             .height(120.dp),
@@ -48,7 +48,7 @@ fun BookInnerItemsScreen(bookResponse: BookResponse, itemOnClick: (Int) -> Unit 
 
             // Title
             Text(
-                text = "Title: ${bookResponse.title}",
+                text = "Title: ${bookResponseModel.title}",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
@@ -58,7 +58,7 @@ fun BookInnerItemsScreen(bookResponse: BookResponse, itemOnClick: (Int) -> Unit 
 
             // Author
             Text(
-                text = "Author: ${bookResponse.author}",
+                text = "Author: ${bookResponseModel.author}",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
