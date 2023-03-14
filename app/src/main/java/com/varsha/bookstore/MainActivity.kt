@@ -64,9 +64,12 @@ fun NavigationComponent(
         composable(Screen.Detail.route) { navBackStackEntry ->
             val bookId = navBackStackEntry.arguments?.getString("bookId")
             bookId?.let {
+                val scope = rememberCoroutineScope()
+                scope.launch {
+                    viewModel.getBookDataFromId(bookId.toInt())
+                }
                 BookDetailScreen(
                     navigateUp = { navController.popBackStack() },
-                    bookId = it.toInt(),
                     viewModel = viewModel
                 )
             }
