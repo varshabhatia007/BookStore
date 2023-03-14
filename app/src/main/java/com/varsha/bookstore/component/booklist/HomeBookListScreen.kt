@@ -11,22 +11,29 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.primarySurface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.varsha.bookstore.R
 import com.varsha.bookstore.component.common.CircularProgressComponent
 import com.varsha.bookstore.component.common.ErrorComponent
+import com.varsha.bookstore.model.BookResponse
 import com.varsha.bookstore.utility.Resource
 import com.varsha.bookstore.viewmodel.BookStoreViewModel
 
 @Composable
 fun HomeScreen(
-    viewModel: BookStoreViewModel,
-    showDetailScreen: (Int) -> Unit = {}
+    showDetailScreen: (Int) -> Unit = {},
+    viewModel: BookStoreViewModel = hiltViewModel()
 ) {
-    val getAllBooksData = viewModel.getBookData.collectAsState().value
+    val bookInfo =
+        produceState<Resource<List<BookResponse>>>(initialValue = Resource.Loading())
+        {
+            value = viewModel.getBooksData()
+        }.value
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -46,7 +53,7 @@ fun HomeScreen(
             )
         }
     ) {
-        when (getAllBooksData) {
+        when (bookInfo) {
             is Resource.Loading -> {
                 CircularProgressComponent()
             }
@@ -54,15 +61,15 @@ fun HomeScreen(
                 LazyColumn(
                     modifier = Modifier.padding(10.dp)
                 ) {
-                    items(getAllBooksData.data!!.size) { index ->
+                    items(bookInfo.data!!.size) { index ->
                         BookInnerItemsScreen(
-                            getAllBooksData.data[index],
+                            bookInfo.data[index],
                             itemOnClick = { showDetailScreen(it) })
                     }
                 }
             }
             is Resource.Error -> {
-                ErrorComponent(getAllBooksData.message.toString())
+                ErrorComponent(bookInfo.message.toString())
             }
         }
     }

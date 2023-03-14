@@ -8,20 +8,27 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.varsha.bookstore.R
 import com.varsha.bookstore.component.common.CircularProgressComponent
 import com.varsha.bookstore.component.common.ErrorComponent
+import com.varsha.bookstore.model.BookDetailResponse
 import com.varsha.bookstore.utility.Resource
 import com.varsha.bookstore.viewmodel.BookStoreViewModel
 
 @Composable
 fun BookDetailScreen(
-    viewModel: BookStoreViewModel,
     navigateUp: () -> Unit = {},
+    bookId: Int,
+    viewModel: BookStoreViewModel = hiltViewModel()
 ) {
-    val getBookDataFromId = viewModel.getBookDataFromId.collectAsState().value
+    val bookDetailInfo =
+        produceState<Resource<BookDetailResponse>>(initialValue = Resource.Loading()) {
+            value = viewModel.getBookDataFromId(bookId)
+        }.value
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -39,17 +46,17 @@ fun BookDetailScreen(
             )
         },
         content = {
-            when (getBookDataFromId) {
+            when (bookDetailInfo) {
                 is Resource.Loading -> {
                     CircularProgressComponent()
                 }
                 is Resource.Success -> {
-                    if (getBookDataFromId.data!!.title.isNotEmpty()) {
-                        BookDetailInnerItemScreen(getBookDataFromId.data)
+                    if (bookDetailInfo.data!!.title.isNotEmpty()) {
+                        BookDetailInnerItemScreen(bookDetailInfo.data)
                     }
                 }
                 is Resource.Error -> {
-                    ErrorComponent(errorText = getBookDataFromId.message.toString())
+                    ErrorComponent(errorText = bookDetailInfo.message.toString())
                 }
             }
         }
