@@ -2,7 +2,7 @@ package com.varsha.bookstore.repository
 
 import com.varsha.bookstore.data.BookDetailResponseModel
 import com.varsha.bookstore.data.BookResponseModel
-import com.varsha.bookstore.mapper.BookInfoDetailMapper
+import com.varsha.bookstore.mapper.BookDetailInfoMapper
 import com.varsha.bookstore.mapper.BookInfoMapper
 import com.varsha.bookstore.network.BookStoreApi
 import com.varsha.bookstore.utility.Resource
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class BookRepository @Inject constructor(
     private val bookStoreApi: BookStoreApi,
     private val bookInfoMapper: BookInfoMapper,
-    private val bookInfoDetailMapper: BookInfoDetailMapper,
+    private val bookDetailInfoMapper: BookDetailInfoMapper,
 ) {
     /*
      * This is api call is used to get the data from the network
@@ -40,7 +40,7 @@ class BookRepository @Inject constructor(
         } catch (e: Exception) {
             return Resource.Error("An unknown exception: ${e.localizedMessage}")
         }
-        val result = bookInfoDetailMapper.mapToDomain(response)
+        val result = bookDetailInfoMapper.mapToDomain(response)
         return Resource.Success(result)
     }
 }

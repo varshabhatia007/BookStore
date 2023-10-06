@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BookInfoDetailMapper @Inject constructor() :
+class BookDetailInfoMapper @Inject constructor() :
     ApiMapper<BookDetailResponse, BookDetailResponseModel> {
     override fun mapToDomain(apiResponse: BookDetailResponse): BookDetailResponseModel =
         BookDetailResponseModel(

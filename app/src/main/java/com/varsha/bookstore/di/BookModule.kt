@@ -1,6 +1,6 @@
 package com.varsha.bookstore.di
 
-import com.varsha.bookstore.mapper.BookInfoDetailMapper
+import com.varsha.bookstore.mapper.BookDetailInfoMapper
 import com.varsha.bookstore.mapper.BookInfoMapper
 import com.varsha.bookstore.network.BookStoreApi
 import com.varsha.bookstore.repository.BookRepository
@@ -46,6 +46,6 @@ class BookModule {
     fun provideBookRepository(
         bookStoreApi: BookStoreApi,
         bookInfoMapper: BookInfoMapper,
-        bookInfoDetailMapper: BookInfoDetailMapper,
-    ) = BookRepository(bookStoreApi, bookInfoMapper, bookInfoDetailMapper)
+        bookDetailInfoMapper: BookDetailInfoMapper,
+    ) = BookRepository(bookStoreApi, bookInfoMapper, bookDetailInfoMapper)
 }
