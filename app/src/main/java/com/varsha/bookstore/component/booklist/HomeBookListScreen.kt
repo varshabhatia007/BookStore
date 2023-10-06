@@ -1,7 +1,9 @@
 package com.varsha.bookstore.component.booklist
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,9 +11,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -22,7 +26,7 @@ import com.varsha.bookstore.data.BookResponseModel
 import com.varsha.bookstore.utility.Resource
 import com.varsha.bookstore.viewmodel.BookStoreViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun HomeScreen(
     showDetailScreen: (Int) -> Unit = {},
@@ -36,6 +40,11 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
+                windowInsets = TopAppBarDefaults.windowInsets,
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = Color.White,
+                    titleContentColor = Color.Black,
+                ),
                 title = {
                     Row(
                         horizontalArrangement = Arrangement.Center,
@@ -56,7 +65,8 @@ fun HomeScreen(
 
                 is Resource.Success -> {
                     LazyColumn(
-                        modifier = Modifier.padding(10.dp),
+                        modifier = Modifier.consumeWindowInsets(padding),
+                        contentPadding = padding,
                     ) {
                         items(bookInfo.data!!.size) { index ->
                             BookInnerItemsScreen(

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,10 +33,7 @@ fun BookInnerItemsScreen(bookResponseModel: BookResponseModel, itemOnClick: (Int
             .clickable { itemOnClick(bookResponseModel.id) }
             .fillMaxWidth()
             .padding(5.dp)
-            .height(120.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp,
-        ),
+            .height(125.dp),
         shape = CutCornerShape(corner = CornerSize(10.dp)),
     ) {
         Column(
