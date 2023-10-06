@@ -17,8 +17,6 @@ class BookInfoDetailMapper @Inject constructor() :
             price = apiResponse.price,
             currencyCode = apiResponse.currencyCode,
             author = apiResponse.author,
-            isbn = apiResponse.isbn
+            isbn = apiResponse.isbn,
         )
 }
-
-

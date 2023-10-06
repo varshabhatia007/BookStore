@@ -23,7 +23,7 @@ class BookModule {
     @Singleton
     @Provides
     fun providesBookStoreApi(): BookStoreApi {
-        var okHttpClient: OkHttpClient? = null
+        val okHttpClient: OkHttpClient?
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -46,7 +46,6 @@ class BookModule {
     fun provideBookRepository(
         bookStoreApi: BookStoreApi,
         bookInfoMapper: BookInfoMapper,
-        bookInfoDetailMapper: BookInfoDetailMapper
+        bookInfoDetailMapper: BookInfoDetailMapper,
     ) = BookRepository(bookStoreApi, bookInfoMapper, bookInfoDetailMapper)
-
 }

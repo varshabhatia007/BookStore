@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookStoreViewModel @Inject constructor(
-    private val bookRepository: BookRepository
+    private val bookRepository: BookRepository,
 ) : ViewModel() {
 
     suspend fun getBooksData(): Resource<List<BookResponseModel>> {

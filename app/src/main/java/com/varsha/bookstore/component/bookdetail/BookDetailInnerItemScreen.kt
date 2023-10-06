@@ -1,17 +1,17 @@
 package com.varsha.bookstore.component.bookdetail
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
@@ -31,16 +31,15 @@ fun BookDetailInnerItemScreen(bookDetailResponseModel: BookDetailResponseModel) 
     val currencySymbol =
         Currency.getInstance(bookDetailResponseModel.currencyCode).getSymbol(Locale.getDefault())
     Surface(
-        color = MaterialTheme.colors.surface,
+        color = MaterialTheme.colorScheme.surface,
         modifier = Modifier
             .padding(4.dp)
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         Column(
             modifier = Modifier
-                .padding(12.dp)
+                .padding(12.dp),
         ) {
-
             // Title
             Text(
                 text = bookDetailResponseModel.title,
@@ -50,8 +49,8 @@ fun BookDetailInnerItemScreen(bookDetailResponseModel: BookDetailResponseModel) 
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Default,
-                style = MaterialTheme.typography.h6,
-                fontSize = 20.sp
+                style = MaterialTheme.typography.headlineMedium,
+                fontSize = 20.sp,
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
@@ -64,8 +63,8 @@ fun BookDetailInnerItemScreen(bookDetailResponseModel: BookDetailResponseModel) 
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
                 fontFamily = FontFamily.SansSerif,
-                style = MaterialTheme.typography.body1,
-                fontSize = 15.sp
+                style = MaterialTheme.typography.bodyMedium,
+                fontSize = 15.sp,
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
@@ -78,8 +77,8 @@ fun BookDetailInnerItemScreen(bookDetailResponseModel: BookDetailResponseModel) 
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Normal,
                 fontFamily = FontFamily.SansSerif,
-                style = MaterialTheme.typography.body2,
-                fontSize = 15.sp
+                style = MaterialTheme.typography.bodySmall,
+                fontSize = 15.sp,
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
@@ -94,8 +93,8 @@ fun BookDetailInnerItemScreen(bookDetailResponseModel: BookDetailResponseModel) 
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily.SansSerif,
-                style = MaterialTheme.typography.body2,
-                fontSize = 15.sp
+                style = MaterialTheme.typography.bodySmall,
+                fontSize = 15.sp,
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
@@ -105,11 +104,11 @@ fun BookDetailInnerItemScreen(bookDetailResponseModel: BookDetailResponseModel) 
                 onClick = { print(bookDetailResponseModel.title + "Book Clicked") },
                 modifier = Modifier
                     .padding(4.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             ) {
                 Text(
                     text = "Book Price: $currencyAmount$currencySymbol",
-                    fontSize = 15.sp
+                    fontSize = 15.sp,
                 )
             }
         }

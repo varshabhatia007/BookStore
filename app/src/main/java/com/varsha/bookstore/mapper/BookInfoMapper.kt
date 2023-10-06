@@ -13,7 +13,6 @@ class BookInfoMapper @Inject constructor() : ApiMapper<BookResponse, BookRespons
         title = apiResponse.title,
         price = apiResponse.price,
         currencyCode = apiResponse.currencyCode,
-        author = apiResponse.author
+        author = apiResponse.author,
     )
-
 }

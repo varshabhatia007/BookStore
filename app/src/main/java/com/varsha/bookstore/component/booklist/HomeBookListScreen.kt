@@ -1,15 +1,14 @@
 package com.varsha.bookstore.component.booklist
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.primarySurface
-import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
@@ -23,54 +22,56 @@ import com.varsha.bookstore.data.BookResponseModel
 import com.varsha.bookstore.utility.Resource
 import com.varsha.bookstore.viewmodel.BookStoreViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     showDetailScreen: (Int) -> Unit = {},
-    viewModel: BookStoreViewModel = hiltViewModel()
+    viewModel: BookStoreViewModel = hiltViewModel(),
 ) {
     val bookInfo =
-        produceState<Resource<List<BookResponseModel>>>(initialValue = Resource.Loading())
-        {
+        produceState<Resource<List<BookResponseModel>>>(initialValue = Resource.Loading()) {
             value = viewModel.getBooksData()
         }.value
 
     Scaffold(
         topBar = {
             TopAppBar(
-                elevation = 4.dp,
-                backgroundColor = MaterialTheme.colors.primarySurface,
                 title = {
                     Row(
                         horizontalArrangement = Arrangement.Center,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
-                            stringResource(R.string.book_app_name)
+                            stringResource(R.string.book_app_name),
                         )
                     }
-
                 },
             )
-        }
-    ) {
-        when (bookInfo) {
-            is Resource.Loading -> {
-                CircularProgressComponent()
-            }
-            is Resource.Success -> {
-                LazyColumn(
-                    modifier = Modifier.padding(10.dp)
-                ) {
-                    items(bookInfo.data!!.size) { index ->
-                        BookInnerItemsScreen(
-                            bookInfo.data[index],
-                            itemOnClick = { showDetailScreen(it) })
+        },
+        content = { padding ->
+            when (bookInfo) {
+                is Resource.Loading -> {
+                    CircularProgressComponent()
+                }
+
+                is Resource.Success -> {
+                    LazyColumn(
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        items(bookInfo.data!!.size) { index ->
+                            BookInnerItemsScreen(
+                                bookInfo.data[index],
+                                itemOnClick = { showDetailScreen(it) },
+                            )
+                        }
                     }
                 }
+
+                is Resource.Error -> {
+                    ErrorComponent(bookInfo.message.toString())
+                }
             }
-            is Resource.Error -> {
-                ErrorComponent(bookInfo.message.toString())
-            }
-        }
-    }
+        },
+        modifier = Modifier.padding(10.dp),
+    )
 }

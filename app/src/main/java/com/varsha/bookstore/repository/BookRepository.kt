@@ -13,7 +13,7 @@ import javax.inject.Inject
 class BookRepository @Inject constructor(
     private val bookStoreApi: BookStoreApi,
     private val bookInfoMapper: BookInfoMapper,
-    private val bookInfoDetailMapper: BookInfoDetailMapper
+    private val bookInfoDetailMapper: BookInfoDetailMapper,
 ) {
     /*
      * This is api call is used to get the data from the network

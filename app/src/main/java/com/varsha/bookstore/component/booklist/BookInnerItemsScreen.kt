@@ -1,16 +1,16 @@
 package com.varsha.bookstore.component.booklist
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.CutCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,29 +30,29 @@ fun BookInnerItemsScreen(bookResponseModel: BookResponseModel, itemOnClick: (Int
         Currency.getInstance(bookResponseModel.currencyCode).getSymbol(Locale.getDefault())
 
     Card(
-        backgroundColor = MaterialTheme.colors.onPrimary,
         modifier = Modifier
             .clickable { itemOnClick(bookResponseModel.id) }
             .fillMaxWidth()
             .padding(5.dp)
             .height(120.dp),
-        elevation = 10.dp,
-        shape = CutCornerShape(corner = CornerSize(10.dp))
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp,
+        ),
+        shape = CutCornerShape(corner = CornerSize(10.dp)),
     ) {
         Column(
             modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
             // Title
             Text(
                 text = "Title: ${bookResponseModel.title}",
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Default
+                fontFamily = FontFamily.Default,
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
@@ -62,7 +62,7 @@ fun BookInnerItemsScreen(bookResponseModel: BookResponseModel, itemOnClick: (Int
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = FontFamily.SansSerif
+                fontFamily = FontFamily.SansSerif,
             )
             Spacer(modifier = Modifier.padding(5.dp))
 
@@ -72,7 +72,7 @@ fun BookInnerItemsScreen(bookResponseModel: BookResponseModel, itemOnClick: (Int
                 modifier = Modifier.fillMaxWidth(),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = FontFamily.SansSerif
+                fontFamily = FontFamily.SansSerif,
             )
         }
     }

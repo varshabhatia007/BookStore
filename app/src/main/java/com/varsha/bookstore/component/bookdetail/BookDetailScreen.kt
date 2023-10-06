@@ -1,12 +1,13 @@
 package com.varsha.bookstore.component.bookdetail
 
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.Text
-import androidx.compose.material.IconButton
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.res.stringResource
@@ -18,11 +19,12 @@ import com.varsha.bookstore.data.BookDetailResponseModel
 import com.varsha.bookstore.utility.Resource
 import com.varsha.bookstore.viewmodel.BookStoreViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookDetailScreen(
     navigateUp: () -> Unit = {},
     bookId: Int,
-    viewModel: BookStoreViewModel = hiltViewModel()
+    viewModel: BookStoreViewModel = hiltViewModel(),
 ) {
     val bookDetailInfo =
         produceState<Resource<BookDetailResponseModel>>(initialValue = Resource.Loading()) {
@@ -35,17 +37,17 @@ fun BookDetailScreen(
                 title = { Text(text = stringResource(R.string.book_details)) },
                 navigationIcon = {
                     IconButton(
-                        onClick = { navigateUp() }
+                        onClick = { navigateUp() },
                     ) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.back),
                         )
                     }
-                }
+                },
             )
         },
-        content = {
+        content = { innerPadding ->
             when (bookDetailInfo) {
                 is Resource.Loading -> {
                     CircularProgressComponent()
@@ -59,8 +61,6 @@ fun BookDetailScreen(
                     ErrorComponent(errorText = bookDetailInfo.message.toString())
                 }
             }
-        }
+        },
     )
 }
-
-
