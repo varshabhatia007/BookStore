@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 // Navigation component for handling the screens navigation
                 NavigationComponent(
-                    navController = navController
+                    navController = navController,
                 )
             }
         }
@@ -32,18 +32,18 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NavigationComponent(
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = Screen.Home.route,
     ) {
         // Book Information - Home Screen
         composable(Screen.Home.route) {
             HomeScreen(
                 showDetailScreen = {
                     navController.navigate(Screen.Detail.createRoute(it))
-                }
+                },
             )
         }
 
@@ -53,7 +53,7 @@ fun NavigationComponent(
             bookId?.let {
                 BookDetailScreen(
                     navigateUp = { navController.popBackStack() },
-                    bookId.toInt()
+                    bookId.toInt(),
                 )
             }
         }
